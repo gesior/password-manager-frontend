@@ -1,0 +1,24 @@
+<h3>Add new encryption key - {{encryptionKey.name}}</h3>
+
+<a [routerLink]="['/key/list']" class="btn btn-sm btn-secondary m-1">Back</a>
+
+<div class="row my-1">
+  <div class="col-md-2 text-md-right">Name</div>
+  <div class="col-md-10">
+    <input type="text" placeholder="Name" [(ngModel)]="encryptionKey.name" #ctrl="ngModel" class="form-control">
+  </div>
+</div>
+
+
+<div class="row my-1">
+  <div class="col-md-2 text-md-right">Password</div>
+  <div class="col-md-10">
+    <input type="text" placeholder="Password" [(ngModel)]="password" #ctrl="ngModel" class="form-control">
+  </div>
+</div>
+
+<div class="row my-1">
+  <div class="offset-md-2 col-md-10">
+    <button type="submit" class="btn btn-primary" (click)="create()">Create</button>
+  </div>
+</div>

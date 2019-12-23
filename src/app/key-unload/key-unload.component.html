@@ -1,0 +1,17 @@
+<div class="alert alert-success" *ngIf="!encryptionKey">Loading...</div>
+
+<ng-container *ngIf="encryptionKey">
+  <h3>Unload Encryption Key - {{encryptionKey.name}}</h3>
+
+  <a [routerLink]="['/key/list']" class="btn btn-sm btn-secondary m-1">Back</a>
+
+  <div class="alert alert-info">Click button below to unload Encryption Key: <b>{{encryptionKey.name}}</b></div>
+
+
+  <div class="row my-1">
+    <div class="col-md-12 text-center">
+      <button type="submit" class="btn btn-warning" (click)="unload()">Unload</button>
+    </div>
+  </div>
+
+</ng-container>

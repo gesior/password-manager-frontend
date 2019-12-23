@@ -1,0 +1,46 @@
+<div class="alert alert-success" *ngIf="!dataRow">Loading...</div>
+
+<ng-container *ngIf="dataRow">
+  <h3>Edit basic details - {{dataRow.name}}</h3>
+
+  <a [routerLink]="['/password/details', dataRow.id]" class="btn btn-sm btn-secondary m-1">Back</a>
+
+  <form (ngSubmit)="onSubmit()" #editDataRowForm="ngForm">
+    <div class="row my-1">
+      <div class="col-md-2 text-md-right">Name</div>
+      <div class="col-md-10">
+        <input type="text" placeholder="Name" [(ngModel)]="dataRow.name" name="name" #name="ngModel" class="form-control"
+               required="">
+        <div [hidden]="name.valid" class="text-danger">Name is required</div>
+      </div>
+    </div>
+
+    <div class="row my-1">
+      <div class="col-md-2 text-md-right">Comment</div>
+      <div class="col-md-10">
+      <textarea placeholder="Comment" [(ngModel)]="dataRow.comment" name="comment" #comment="ngModel"
+                class="form-control"></textarea>
+        <div class="alert alert-info">
+          BBCode allowed:
+          [b]<b>strong</b>[/b]
+          [i]<i>italic</i>[/i]
+          [url]<a href="http://example.com">http://example.com</a>[/url]
+        </div>
+      </div>
+    </div>
+
+    <div class="row my-1">
+      <div class="col-md-2 text-md-right">Login</div>
+      <div class="col-md-10">
+        <input type="text" placeholder="Login" [(ngModel)]="dataRow.login" name="login" #login="ngModel"
+               class="form-control">
+      </div>
+    </div>
+
+    <div class="row my-1">
+      <div class="offset-md-2 col-md-10">
+        <button type="submit" class="btn btn-primary" [disabled]="!editDataRowForm.form.valid">Save changes</button>
+      </div>
+    </div>
+  </form>
+</ng-container>

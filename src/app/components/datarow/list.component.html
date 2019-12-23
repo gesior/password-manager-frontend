@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-md-3 d-none d-md-block"><h2>Passwords</h2></div>
+  <div class="col-md-7">
+    <input type="text" placeholder="Search" (keyup)="updateSearch()" [(ngModel)]="searchText" #ctrl="ngModel"
+           class="form-control mt-1">
+  </div>
+  <div class="col-md-2"><a [routerLink]="['/password/create']" class="btn btn-success my-1 float-right">Create New Password</a></div>
+</div>
+
+<div class="alert alert-warning" *ngIf="this.visibleRowsCount === 0">No search results.</div>
+
+<ng-container *ngIf="dataRows">
+  <table class="table">
+    <ng-container *ngFor="let dataRow of dataRows">
+      <ng-container *ngIf="isRowVisible(dataRow)">
+        <tr>
+          <td>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="font-weight-bold">
+                  {{dataRow.name}}
+                  <a [routerLink]="['/password/details', dataRow.id]" class="btn btn-sm btn-info">Details</a>
+                </div>
+                <div class="text-secondary">
+                  <pre [innerHTML]="bbCodeParsed(dataRow.comment)"></pre>
+                </div>
+              </div>
+              <div class="col-md-4">
+
+                <input type="text" value="{{ dataRow.login }}" class="form-control"/>
+                <ng-container *ngIf="dataRow.passwordEncryptionKeyId">
+                  <ng-container *ngIf="isPasswordVisible(dataRow)">
+                    <input type="text" value="{{ getPassword(dataRow) }}" (click)="showPassword(dataRow)"
+                           class="form-control"/>
+                  </ng-container>
+
+                  <ng-container *ngIf="!isPasswordVisible(dataRow)">
+                    <ng-container *ngIf="encryptionService.isEncryptionKeyIdLoaded(dataRow.passwordEncryptionKeyId)">
+                      <button class="btn btn-primary" (click)="showPassword(dataRow)">Show password</button>
+                    </ng-container>
+                    <ng-container *ngIf="!encryptionService.isEncryptionKeyIdLoaded(dataRow.passwordEncryptionKeyId)">
+                      (Encryption Key not loaded)
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  </table>
+</ng-container>

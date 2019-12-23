@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-3 d-none d-md-block"><h2>Encryption keys</h2></div>
+  <div class="col-md-9"><a [routerLink]="['/key/create']" class="btn btn-success my-1 float-right">New Encryption
+    Key</a></div>
+</div>
+
+<div class="alert alert-warning" *ngIf="this.encryptionKeys.length === 0">No encryption keys.</div>
+
+<ng-container *ngIf="encryptionKeys.length > 0">
+  <table class="table">
+    <ng-container *ngFor="let encryptionKey of encryptionKeys">
+      <tr>
+        <td>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="font-weight-bold">
+                {{encryptionKey.name}}
+                <ng-container *ngIf="encryptionService.isEncryptionKeyLoaded(encryptionKey)">
+                  <a class="btn btn-sm btn-success">Loaded</a>
+                </ng-container>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <ng-container *ngIf="encryptionService.isEncryptionKeyLoaded(encryptionKey)">
+                <a [routerLink]="['/key/unload', encryptionKey.id]" class="btn btn-warning">Unload Encryption Key</a>
+              </ng-container>
+              <ng-container *ngIf="!encryptionService.isEncryptionKeyLoaded(encryptionKey)">
+                <a [routerLink]="['/key/load', encryptionKey.id]" class="btn btn-primary">Load Encryption Key</a>
+              </ng-container>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+  </table>
+</ng-container>

@@ -1,0 +1,62 @@
+<div class="alert alert-success" *ngIf="!dataRow">Loading...</div>
+
+<ng-container *ngIf="dataRow">
+  <h3>Details - {{dataRow.name}}</h3>
+
+  <a [routerLink]="['/password/list']" class="btn btn-sm btn-secondary m-1">Back</a>
+  <a [routerLink]="['/password/edit', dataRow.id]" class="btn btn-sm btn-info m-1">Edit basic details</a>
+  <a [routerLink]="['/password/edit-password', dataRow.id]" class="btn btn-sm btn-warning m-1">Edit Password</a>
+  <a [routerLink]="['/password/edit', dataRow.id]" class="btn btn-sm btn-warning m-1">Edit Recovery Info</a>
+
+  <div class="row my-1">
+    <div class="col-md-2 text-md-right">Name</div>
+    <div class="col-md-10">{{dataRow.name}}</div>
+  </div>
+
+  <div class="row my-1">
+    <div class="col-md-2 text-md-right">Comment</div>
+    <div class="col-md-10"><pre [innerHTML]="bbCodeParsed(dataRow.comment)"></pre></div>
+  </div>
+
+  <div class="row my-1">
+    <div class="col-md-2 text-md-right">Login</div>
+    <div class="col-md-10">
+      <input type="text" value="{{ dataRow.login }}" class="form-control"/>
+    </div>
+  </div>
+
+  <div class="row my-1">
+    <div class="col-md-2 text-md-right">Password</div>
+    <div class="col-md-10">
+      <ng-container *ngIf="this.dataRow.passwordEncryptionKeyId !== null">
+        <ng-container *ngIf="isPasswordVisible()">
+          <input type="text" value="{{ getPassword() }}" (click)="showPassword()"
+                 class="form-control"/>
+        </ng-container>
+        <ng-container *ngIf="!isPasswordVisible()">
+          <button class="btn btn-primary" (click)="showPassword()">Show password</button>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="this.dataRow.passwordEncryptionKeyId === null">
+        No password.
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="row my-1">
+    <div class="col-md-2 text-md-right">Recovery Info</div>
+    <div class="col-md-10">
+      <ng-container *ngIf="this.dataRow.recoveryInfoEncryptionKeyId !== null">
+        <ng-container *ngIf="isRecoveryInfoVisible()">
+          <pre (click)="showRecoveryInfo()">{{ getRecoveryInfo() }}</pre>
+        </ng-container>
+        <ng-container *ngIf="!isRecoveryInfoVisible()">
+          <button class="btn btn-primary" (click)="showRecoveryInfo()">Show Recovery Info</button>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="this.dataRow.recoveryInfoEncryptionKeyId === null">
+        No recovery information.
+      </ng-container>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,6 @@
+<form [formGroup]="encryptionKeyForm">
+  <select (change)="onChange($event.target.value)" formControlName="encryptionKeyControl" class="form-control">
+    <option [value]="e.id" *ngFor="let e of this.encryptionKeyService.getList()">{{e.id }} - {{ e.name}}
+    <ng-container *ngIf="isLoaded(e)"> - LOADED</ng-container> </option>
+  </select>
+</form>

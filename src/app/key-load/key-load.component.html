@@ -1,0 +1,25 @@
+<div class="alert alert-success" *ngIf="!encryptionKey">Loading...</div>
+
+<ng-container *ngIf="encryptionKey">
+  <h3>Load Encryption Key - {{encryptionKey.name}}</h3>
+
+  <a [routerLink]="['/key/list']" class="btn btn-sm btn-secondary m-1">Back</a>
+
+  <app-error [error]="error"></app-error>
+
+  <div class="alert alert-info">Type password to Encryption Key: <b>{{encryptionKey.name}}</b></div>
+
+  <div class="row my-1">
+    <div class="col-md-2 text-md-right">Password</div>
+    <div class="col-md-10">
+      <input type="password" placeholder="Password" [(ngModel)]="password" #ctrl="ngModel" class="form-control">
+    </div>
+  </div>
+
+  <div class="row my-1">
+    <div class="offset-md-2 col-md-10">
+      <button type="submit" class="btn btn-primary" (click)="load()">Load</button>
+    </div>
+  </div>
+
+</ng-container>

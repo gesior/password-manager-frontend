@@ -1,0 +1,38 @@
+<h3>Add new password - {{dataRow.name}}</h3>
+
+<a [routerLink]="['/password/list']" class="btn btn-sm btn-secondary m-1">Back</a>
+
+<div class="alert alert-info">Password and recovery information you will set after creating new record.</div>
+
+<form (ngSubmit)="onSubmit()" #createDataRowForm="ngForm">
+  <div class="row my-1">
+    <div class="col-md-2 text-md-right">Name</div>
+    <div class="col-md-10">
+      <input type="text" placeholder="Name" [(ngModel)]="dataRow.name" name="name" #name="ngModel" class="form-control"
+             required="">
+      <div [hidden]="name.valid" class="text-danger"> Name is required</div>
+    </div>
+  </div>
+
+  <div class="row my-1">
+    <div class="col-md-2 text-md-right">Comment</div>
+    <div class="col-md-10">
+      <textarea placeholder="Comment" [(ngModel)]="dataRow.comment" name="comment" #comment="ngModel"
+                class="form-control"></textarea>
+    </div>
+  </div>
+
+  <div class="row my-1">
+    <div class="col-md-2 text-md-right">Login</div>
+    <div class="col-md-10">
+      <input type="text" placeholder="Login" [(ngModel)]="dataRow.login" name="login" #login="ngModel"
+             class="form-control">
+    </div>
+  </div>
+
+  <div class="row my-1">
+    <div class="offset-md-2 col-md-10">
+      <button type="submit" class="btn btn-primary" [disabled]="!createDataRowForm.form.valid">Create</button>
+    </div>
+  </div>
+</form>
